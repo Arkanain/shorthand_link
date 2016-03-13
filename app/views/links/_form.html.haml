@@ -1,0 +1,9 @@
+= form_for :link, url: links_path, html: { remote: true, id: 'create_link' } do |f|
+  = f.text_field :original_link
+
+  = f.submit
+
+:javascript
+  $(document).bind('ajax:complete', '#create_link', function() {
+    $(this).find('input:text').val('');
+  });

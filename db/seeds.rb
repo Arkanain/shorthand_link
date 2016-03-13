@@ -1,0 +1,1 @@
+10.times { |n| Link.create(original_link: "http://test#{n}.com") }
