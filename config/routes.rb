@@ -1,7 +1,15 @@
-Rails.application.routes.draw do
-  resources :links, only: [:index, :create, :show]
+require 'resque/server'
 
+Rails.application.routes.draw do
   root 'links#index'
 
-  get '/:id' => 'links#show'
+  resources :links, only: [:index, :create, :edit, :update]
+  resources :users
+  resources :wallets do
+    get :send_wallet
+  end
+
+  mount Resque::Server, at: '/resque'
+
+  get '/:id', to: redirect { |path_params| Link.move_me(path_params[:id]) }
 end

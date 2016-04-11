@@ -1,0 +1,12 @@
+= form_for @user do |f|
+  %p
+    = f.label :email
+    = f.text_field :email
+
+  = f.fields_for :links, @user.links do |form_link|
+    %p
+      = form_link.label :original_link
+      = form_link.text_field :original_link
+
+  %p
+    = f.submit
